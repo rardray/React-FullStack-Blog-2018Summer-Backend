@@ -88,11 +88,21 @@ router.get('/comments/edit/:id', function(req, res) {
     console.log(id)
     Posts.findOne({'comments._id' : id}, function(err, posts){
         if (err) {
-            console.log("Error getting books from libray")
+            console.log("error retrieving posts")
         } else {
             res.json(posts)
         }
         })
     })
-
+    router.get('/posts/edit/:id', function(req, res) {
+        var id = req.params.id
+        console.log(id)
+        Posts.findOne({'_id' : id}, function(err, posts){
+            if (err) {
+                console.log("error retrieving posts")
+            } else {
+                res.json(posts)
+            }
+            })
+        })
 module.exports = router;

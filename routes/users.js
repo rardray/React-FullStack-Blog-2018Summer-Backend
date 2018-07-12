@@ -62,12 +62,13 @@ router.post('/userinfo/signup', function(req, res) {
   })
 })
 
-router.get('/userinfo/list', function(req, res) {
-  UserInfo.find({}).exec(function(err, posts){
+router.get('/userinfo/get/list', function(req, res) {
+ console.log('connecting')
+  UserInfo.find({}).exec(function(err, userinfo){
   if (err) {
       console.log("Unable to load posts")
   } else {
-      res.json(posts)
+      res.json(userinfo)
   }
   })
 })
@@ -80,6 +81,18 @@ router.put('/userinfo/addphoto/:id', function(req, res) {
       if(err) {res.json(err)
       } else {
           res.status(201).send('Successfully updated"')
+      }
+  })
+})
+
+router.delete('/userinfo/delete/:id', function(req, res) {
+  var id = req.params.id
+  console.log(id)
+  UserInfo.findByIdAndRemove((req.params.id) , function(err, docs) {
+      if(err) { res.json(err)
+      } else {
+          res.status(201).send('Successfully deleted')
+          console.log("post " + id + " successfully deleted")
       }
   })
 })
